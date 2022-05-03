@@ -9,6 +9,9 @@ PLATFORMS=( "$@" )
 
 # Constants
 export REPO_ROOT=`pwd`
+export MACOSX_DEPLOYMENT_TARGET=10.13
+export IPHONEOS_DEPLOYMENT_TARGET=11.0
+export TVOS_DEPLOYMENT_TARGET=11.0
 
 # Build libffi for a given platform
 function build_libffi() {
@@ -76,7 +79,7 @@ function build_llvm() {
     cp ../llvm/cmake/platforms/iOS.cmake ../llvm/cmake/platforms/tvOS.cmake
     sed -i.bak 's/iphoneos/appletvos/' ../llvm/cmake/platforms/tvOS.cmake
 
-    #Create tvOS cmake based on iOS one
+    #Create macOS cmake based on iOS one
     cp ../llvm/cmake/platforms/iOS.cmake ../llvm/cmake/platforms/macOS.cmake
     sed -i.bak 's/iphoneos/macosx/' ../llvm/cmake/platforms/macOS.cmake
 
@@ -100,6 +103,11 @@ function build_llvm() {
 		-DCMAKE_INSTALL_PREFIX=$LLVM_INSTALL_DIR)
 
 	case $PLATFORM in
+		"macosx")
+			ARCH="arm64;x86_64"
+   			CMAKE_ARGS+=(-DLLVM_TARGET_ARCH=$ARCH \
+                -DCMAKE_TOOLCHAIN_FILE=../llvm/cmake/platforms/macOS.cmake);;
+
 		"iphoneos")
 			ARCH="arm64"
 			CMAKE_ARGS+=(-DLLVM_TARGET_ARCH=$ARCH \
@@ -199,8 +207,6 @@ for p in ${PLATFORMS[@]}; do
 	cd $REPO_ROOT
 	FRAMEWORKS_ARGS+=(-library LLVM-$p/llvm.a -headers LLVM-$p/include)
 	tar -cJf LLVM-$p.tar.xz LLVM-$p/
-	echo "Create clang support headers archive"
-	test -f libclang.tar.xz || tar -cJf libclang.tar.xz LLVM-$p/lib/clang/
 done
 
 echo "Create XC framework with arguments" ${FRAMEWORKS_ARGS[@]}
