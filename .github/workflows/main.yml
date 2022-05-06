@@ -13,7 +13,7 @@ jobs:
           unzip ninja-mac.zip
           mv ninja tools/bin
           export PATH=$PATH:`pwd`/tools/bin
-          ./build-llvm-framework.sh iphonesimulator
+          ./build-llvm-framework.sh macosx iphoneos iphonesimulator maccatalyst appletvos appletvsimulator
       - uses: actions/upload-artifact@v3
         with:
           name: LLVM.xcframework
