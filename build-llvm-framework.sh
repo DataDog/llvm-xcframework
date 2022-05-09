@@ -84,7 +84,7 @@ function build_llvm() {
                 -DCMAKE_TOOLCHAIN_FILE=../llvm/cmake/platforms/iOS.cmake);;
 
 		"iphonesimulator")
-			ARCH="x86_64"
+			ARCH="arm64;x86_64"
 			SYSROOT=`xcodebuild -version -sdk iphonesimulator Path`
 			CMAKE_ARGS+=(-DCMAKE_OSX_SYSROOT=$SYSROOT \
                 -DCMAKE_TOOLCHAIN_FILE=../llvm/cmake/platforms/iOS.cmake);;
@@ -95,13 +95,13 @@ function build_llvm() {
                 -DCMAKE_TOOLCHAIN_FILE=../llvm/cmake/platforms/tvOS.cmake);;
 
 		"appletvsimulator")
-			ARCH="x86_64"
+			ARCH="arm64;x86_64"
 			SYSROOT=`xcodebuild -version -sdk appletvsimulator Path`
 			CMAKE_ARGS+=(-DCMAKE_OSX_SYSROOT=$SYSROOT \
                 -DCMAKE_TOOLCHAIN_FILE=../llvm/cmake/platforms/tvOS.cmake);;
 
 		"maccatalyst")
-			ARCH="x86_64"
+			ARCH="arm64;x86_64"
 			SYSROOT=`xcodebuild -version -sdk macosx Path`
 			CMAKE_ARGS+=(-DCMAKE_OSX_SYSROOT=$SYSROOT \
 				-DCMAKE_C_FLAGS="-target x86_64-apple-ios14.1-macabi" \
