@@ -166,4 +166,5 @@ done
 
 echo "Create XC framework with arguments" ${FRAMEWORKS_ARGS[@]}
 xcodebuild -create-xcframework ${FRAMEWORKS_ARGS[@]} -output LLVM.xcframework
-tar -cJf LLVM.xcframework.tar.xz LLVM.xcframework
+//tar -cJf LLVM.xcframework.tar.xz LLVM.xcframework
+zip -ry ./LLVM.xcframework.zip ./LLVM.xcframework
