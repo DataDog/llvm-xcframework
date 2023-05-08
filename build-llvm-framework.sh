@@ -14,8 +14,6 @@ export IPHONEOS_DEPLOYMENT_TARGET=11.0
 export TVOS_DEPLOYMENT_TARGET=11.0
 
 function get_llvm_src() {
-	#git clone --single-branch --branch release/14.x https://github.com/llvm/llvm-project.git
-
 	wget https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.0/llvm-project-15.0.0.src.tar.xz
 	tar xzf llvm-project-15.0.0.src.tar.xz
 	mv llvm-project-15.0.0.src llvm-project
@@ -69,6 +67,7 @@ function build_llvm() {
 		-DLLVM_ENABLE_EH=OFF \
 		-DLLVM_ENABLE_RTTI=OFF \
 		-DLLVM_ENABLE_TERMINFO=OFF \
+        -DLLVM_DISABLE_ASSEMBLY_FILES=ON \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_INSTALL_PREFIX=$LLVM_INSTALL_DIR)
 
