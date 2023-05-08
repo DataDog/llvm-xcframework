@@ -16,9 +16,9 @@ export TVOS_DEPLOYMENT_TARGET=11.0
 function get_llvm_src() {
 	#git clone --single-branch --branch release/14.x https://github.com/llvm/llvm-project.git
 
-	wget https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.0/llvm-project-14.0.0.src.tar.xz
-	tar xzf llvm-project-14.0.0.src.tar.xz
-	mv llvm-project-14.0.0.src llvm-project
+	wget https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.0/llvm-project-15.0.0.src.tar.xz
+	tar xzf llvm-project-15.0.0.src.tar.xz
+	mv llvm-project-15.0.0.src llvm-project
 
     #Apply Datadog - CI Visibility patch to LLVM
     git apply  --ignore-space-change --ignore-whitespace coverage-patch.diff
