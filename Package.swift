@@ -3,8 +3,8 @@
 
 import PackageDescription
 
-let releaseVersion = "14.0.0"
-let relaseChecksum = "f21837ae93e2b5f31afa681ce40672b8641ff60c6ce77c45afb2410e43abd919"
+let releaseVersion = "15.0.0"
+let relaseChecksum = "1377b44b7e64adbc0311eca1c118fe11bc56d6fa7248914049d559956befe3ba"
 let url = "https://github.com/DataDog/llvm-xcframework/releases/download/\(releaseVersion)/LLVM.xcframework.zip"
 
 let package = Package(
