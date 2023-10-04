@@ -1,6 +1,6 @@
 # Build LLVM XCFramework
 #
-# The script arguments are the platforms to build
+# The script arguments are the platforms to build, eg: macosx iphoneos iphonesimulator maccatalyst appletvos appletvsimulator
 #
 # We assume that all required build tools (CMake, ninja, etc.) are either installed and accessible in $PATH
 # or are available locally within this repo root at $REPO_ROOT/tools/bin (building on VSTS).
@@ -165,5 +165,5 @@ done
 
 echo "Create XC framework with arguments" ${FRAMEWORKS_ARGS[@]}
 xcodebuild -create-xcframework ${FRAMEWORKS_ARGS[@]} -output LLVM.xcframework
-//tar -cJf LLVM.xcframework.tar.xz LLVM.xcframework
+#tar -cJf LLVM.xcframework.tar.xz LLVM.xcframework
 zip -ry ./LLVM.xcframework.zip ./LLVM.xcframework
