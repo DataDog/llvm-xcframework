@@ -1,14 +1,22 @@
 #!/bin/sh
-# From https://gist.github.com/GraemeConradie/49d2f5962fa72952bc6c64ac093db2d5
 
 ##
-# Install autoconf, automake and libtool smoothly on Mac OS X.
-# Newer versions of these libraries are available and may work better on OS X
+# Install ninja, autoconf, automake and libtool for macOS
 ##
 
 export build=`pwd`/temp # or wherever you'd like to build
 export install=`pwd`/tools
 mkdir -p $build
+
+##
+# Ninja
+# https://github.com/ninja-build/ninja
+
+cd $build
+curl -OL https://github.com/ninja-build/ninja/releases/download/v1.10.2/ninja-mac.zip
+unzip ninja-mac.zip
+mkdir -p $install/bin/
+mv ninja $install/bin/
 
 ##
 # Autoconf
@@ -21,7 +29,6 @@ cd autoconf-2.69
 ./configure --prefix=$install
 make
 make install
-# export PATH=$PATH:$install
 
 ##
 # Automake
@@ -47,4 +54,4 @@ cd libtool-2.4.6
 make
 make install
 
-echo "Installation complete."
+echo "Installation complete. Make sure to add $install/bin to your PATH"
