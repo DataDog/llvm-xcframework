@@ -4,10 +4,12 @@ on:
 jobs:
   build-llvm-xcframework:
     runs-on: macos-latest
-    timeout-minutes: 1200
+    timeout-minutes: 600
     steps:
       - uses: actions/checkout@v3
-      - run: |
+      - name: Build LLVM for all platforms
+        timeout-minutes: 600
+        run: |
           ./build-tools.sh
           export PATH=$PATH:`pwd`/tools/bin
           ./build-llvm-framework.sh macosx iphoneos iphonesimulator maccatalyst appletvos appletvsimulator
