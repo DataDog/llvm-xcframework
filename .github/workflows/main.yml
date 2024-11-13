@@ -1,19 +1,27 @@
 name: Build LLVM XCFrameworks for Release
 on:
     workflow_dispatch:
+      inputs:
+        version:
+          description: 'LLVM Version'
+          required: true
+          type: string
 jobs:
   build-llvm-xcframework:
     runs-on: macos-latest
     timeout-minutes: 600
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
       - name: Build LLVM for all platforms
         timeout-minutes: 600
         run: |
           ./build-tools.sh
-          export PATH=$PATH:`pwd`/tools/bin
-          ./build-llvm-framework.sh macosx iphoneos iphonesimulator maccatalyst appletvos appletvsimulator
-      - uses: actions/upload-artifact@v3
+          ./build-llvm-framework.sh ${{inputs.version}} macosx iphoneos iphonesimulator maccatalyst appletvos appletvsimulator
+      - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 #v4.4.3
         with:
-          name: LLVM.xcframework
-          path: LLVM.xcframework.tar.xz
+          name: LLVM.xcframework.zip
+          path: LLVM.xcframework.zip
+      - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 #v4.4.3
+        with:
+          name: LLVM.xcframework.sha256
+          path: LLVM.xcframework.sha256
