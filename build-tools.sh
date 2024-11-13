@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+set -e
 
 ##
 # Install ninja, autoconf, automake and libtool for macOS
@@ -7,51 +8,33 @@
 export build=`pwd`/temp # or wherever you'd like to build
 export install=`pwd`/tools
 mkdir -p $build
+mkdir -p $install
+
+export PATH="$install/bin:$PATH"
+
+##
+# CMake
+# https://cmake.org/
+
+echo "Downloading CMake..."
+cd $build
+curl -OL https://github.com/Kitware/CMake/releases/download/v3.31.0/cmake-3.31.0-macos-universal.tar.gz
+tar xzf cmake-3.31.0-macos-universal.tar.gz
+cd cmake-3.31.0-macos-universal
+mv CMake.app/Contents/bin $install/
+mv CMake.app/Contents/doc $install/
+mv CMake.app/Contents/man $install/
+mv CMake.app/Contents/share $install/
+rm -rf CMake.app
 
 ##
 # Ninja
 # https://github.com/ninja-build/ninja
 
+echo "Downloading Ninja..."
 cd $build
-curl -OL https://github.com/ninja-build/ninja/releases/download/v1.10.2/ninja-mac.zip
+curl -OL https://github.com/ninja-build/ninja/releases/download/v1.12.1/ninja-mac.zip
 unzip ninja-mac.zip
-mkdir -p $install/bin/
 mv ninja $install/bin/
-
-##
-# Autoconf
-# http://ftpmirror.gnu.org/autoconf
-
-cd $build
-curl -OL http://ftpmirror.gnu.org/autoconf/autoconf-2.69.tar.gz
-tar xzf autoconf-2.69.tar.gz
-cd autoconf-2.69
-./configure --prefix=$install
-make
-make install
-
-##
-# Automake
-# http://ftpmirror.gnu.org/automake
-
-cd $build
-curl -OL http://ftpmirror.gnu.org/automake/automake-1.15.tar.gz
-tar xzf automake-1.15.tar.gz
-cd automake-1.15
-./configure --prefix=$install
-make
-make install
-
-##
-# Libtool
-# http://ftpmirror.gnu.org/libtool
-
-cd $build
-curl -OL http://ftpmirror.gnu.org/libtool/libtool-2.4.6.tar.gz
-tar xzf libtool-2.4.6.tar.gz
-cd libtool-2.4.6
-./configure --prefix=$install
-make
-make install
 
 echo "Installation complete. Make sure to add $install/bin to your PATH"
