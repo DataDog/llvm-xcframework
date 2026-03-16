@@ -6,14 +6,14 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 600
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name: Build LLVM for all platforms
         timeout-minutes: 600
         run: |
           ./build-tools.sh
           export PATH=$PATH:`pwd`/tools/bin
           ./build-llvm-framework.sh macosx iphoneos iphonesimulator maccatalyst appletvos appletvsimulator
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3.2.1
         with:
           name: LLVM.xcframework
           path: LLVM.xcframework.tar.xz
